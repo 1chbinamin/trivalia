@@ -27,7 +27,7 @@ export default function Index() {
             {
                 trivia.map((subject, key) => (
                     <div key={key}
-                         className={`h-full flex flex-col justify-between overflow-hidden ${key === index ? 'block' : 'hidden'}`}>
+                         className={`h-full rounded flex flex-col justify-between overflow-hidden ${key === index ? 'block' : 'hidden'}`}>
                         <span className='circle ml-3 mt-3'>{key + 1}</span>
                         <h1 className='text-lg md:text-2xl font-bold px-6 py-6'>
                             {he.decode(subject.question)}

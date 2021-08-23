@@ -9,7 +9,7 @@ export default function Layout({children}) {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <div className='h-screen flex flex-col justify-center items-center'>
-                <main className='w-11/12 h-4/5 greyish-border shadow bg-white'>
+                <main className='w-11/12 h-4/5 rounded greyish-border shadow bg-white'>
                     {children}
                 </main>
             </div>
