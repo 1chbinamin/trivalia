@@ -31,3 +31,16 @@ a {
   background-color: $primary-color;
   color: white;
 }
+
+.circle {
+  font-size: 17px;
+  font-weight: bold;
+  height: 45px;
+  width: 45px;
+  background-color: $primary-color;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
