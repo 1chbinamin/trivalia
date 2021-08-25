@@ -1,10 +1,13 @@
 import useSWR from 'swr'
 import he from 'he'
 import {useEffect, useState} from "react";
+import _ from "lodash";
 
 export default function Index() {
-    const [trivia, setTrivia] = useState(null);
-    const [index, setIndex] = useState(null);
+    const
+        [trivia, setTrivia] = useState(null),
+        [index, setIndex] = useState(null),
+        [score, setScore] = useState(0);
 
     const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -14,13 +17,18 @@ export default function Index() {
 
     useEffect(() => {
         if (data) {
-            setTrivia(data.results);
+            setTrivia(data.results.map((result) => {
+                return {
+                    question: result.question,
+                    answers: _.shuffle([...result.incorrect_answers, result.correct_answer])
+                }
+            }));
             setIndex(0);
         }
     }, [data]);
 
     if (error) return <p>Something with wrong with the server. Please try again later.</p>
-    if (!data || !trivia) return <p>Loading ...</p>
+    if (!trivia) return <p>Loading ...</p>
 
     return (
         <>
@@ -34,25 +42,18 @@ export default function Index() {
                         </h1>
                         <form className='flex-grow px-6'>
                             {
-                                subject.incorrect_answers.map((incorrectAnswer, key) => (
-                                    <label key={key} htmlFor={incorrectAnswer}
+                                subject.answers.map((answer, key) => (
+                                    <label key={key} htmlFor={answer}
                                            className='input-container p-1 mb-2 md:mb-0 block'>
-                                        <input type="radio" name={subject.question} id={incorrectAnswer}
-                                               value={incorrectAnswer}
+                                        <input type="radio" name={subject.question} id={answer}
+                                               value={answer}
                                                className='mr-2'/>
-                                        <span>{he.decode(incorrectAnswer)}</span>
+                                        <span>{he.decode(answer)}</span>
                                     </label>
                                 ))
                             }
-                            <label htmlFor={subject.correct_answer}
-                                   className='input-container p-1 mb-2 md:mb-0 block'>
-                                <input type="radio" name={subject.question} id={subject.correct_answer}
-                                       value={subject.correct_answer}
-                                       className='mr-2'/>
-                                <span>{he.decode(subject.correct_answer)}</span>
-                            </label>
                         </form>
-                        <button className='bottom-btn p-5 font-semibold'>Next</button>
+                        <button className='bottom-btn p-5 font-semibold'>{key < trivia.length -1 ? 'Next' : 'Finish'}</button>
                     </div>
                 ))
             }
