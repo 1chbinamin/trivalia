@@ -47,7 +47,7 @@ export default function Index() {
             {
                 trivia.map((subject, key) => (
                     <div key={key}
-                         className={`h-full rounded flex flex-col justify-between overflow-hidden ${key === index ? 'block' : 'hidden'}`}>
+                         className={`h-full rounded ${key === index ? 'flex md:block' : 'hidden'} flex-col justify-between overflow-hidden`}>
                         <span className='circle ml-3 mt-3'>{key + 1}</span>
                         <h1 className='text-lg md:text-2xl font-bold px-6 py-6'>
                             {he.decode(subject.question)}
@@ -65,7 +65,7 @@ export default function Index() {
                                 ))
                             }
                         </form>
-                        <button className='bottom-btn p-5 font-semibold'
+                        <button className='bottom-btn p-5 font-semibold md:mx-6 md:mt-14 md:w-36 md:rounded md:hover:bg-gray-800'
                                 onClick={handleClick}>{key < trivia.length - 1 ? 'Next' : 'Finish'}</button>
                     </div>
                 ))
