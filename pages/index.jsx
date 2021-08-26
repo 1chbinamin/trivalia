@@ -6,7 +6,8 @@ import _ from "lodash";
 export default function Index() {
     const
         [trivia, setTrivia] = useState(null),
-        [index, setIndex] = useState(null),
+        [index, setIndex] = useState(0),
+        [choice, setChoice] = useState(null),
         [score, setScore] = useState(0);
 
     const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -15,12 +16,23 @@ export default function Index() {
         revalidateOnFocus: false,
     });
 
+    const handleClick = () => {
+        if (choice === trivia[index].correctAnswer) setScore(score + 1);
+        if (index >= trivia.length - 1) {
+            alert('Your score is ' + score + '/' + trivia.length);
+            window.location.reload();
+        } else {
+            setIndex(index + 1);
+        }
+    }
+
     useEffect(() => {
         if (data) {
             setTrivia(data.results.map((result) => {
                 return {
                     question: result.question,
-                    answers: _.shuffle([...result.incorrect_answers, result.correct_answer])
+                    answers: _.shuffle([...result.incorrect_answers, result.correct_answer]),
+                    correctAnswer: result.correct_answer
                 }
             }));
             setIndex(0);
@@ -46,14 +58,15 @@ export default function Index() {
                                     <label key={key} htmlFor={answer}
                                            className='input-container p-1 mb-2 md:mb-0 block'>
                                         <input type="radio" name={subject.question} id={answer}
-                                               value={answer}
-                                               className='mr-2'/>
+                                               value={answer} className='mr-2'
+                                               onChange={(e) => setChoice(e.target.value)}/>
                                         <span>{he.decode(answer)}</span>
                                     </label>
                                 ))
                             }
                         </form>
-                        <button className='bottom-btn p-5 font-semibold'>{key < trivia.length -1 ? 'Next' : 'Finish'}</button>
+                        <button className='bottom-btn p-5 font-semibold'
+                                onClick={handleClick}>{key < trivia.length - 1 ? 'Next' : 'Finish'}</button>
                     </div>
                 ))
             }
