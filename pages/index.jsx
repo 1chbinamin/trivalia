@@ -2,6 +2,7 @@ import useSWR from 'swr'
 import he from 'he'
 import {useEffect, useState} from "react";
 import _ from "lodash";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function Index() {
     const
@@ -39,8 +40,13 @@ export default function Index() {
         }
     }, [data]);
 
-    if (error) return <p>Something with wrong with the server. Please try again later.</p>
-    if (!trivia) return <p>Loading ...</p>
+    if (error) return (
+        <div className='h-full flex justify-center items-center flex-col p-4'>
+            <p className='text-lg md:text-2xl text-center font-semibold pb-6'>Something went wrong with the server. Please try again later.</p>
+            <div className='text-4xl md:text-6xl'>😑</div>
+        </div>
+    )
+    if (!trivia) return <div className='loader-container h-full flex justify-center items-center'><ClipLoader/></div>
 
     return (
         <>
@@ -65,8 +71,9 @@ export default function Index() {
                                 ))
                             }
                         </form>
-                        <button className='bottom-btn p-5 font-semibold md:mx-6 md:mt-14 md:w-36 md:rounded md:hover:bg-gray-800'
-                                onClick={handleClick}>{key < trivia.length - 1 ? 'Next' : 'Finish'}</button>
+                        <button
+                            className='bottom-btn p-5 font-semibold md:mx-6 md:mt-14 md:w-36 md:rounded md:hover:bg-gray-800'
+                            onClick={handleClick}>{key < trivia.length - 1 ? 'Next' : 'Finish'}</button>
                     </div>
                 ))
             }

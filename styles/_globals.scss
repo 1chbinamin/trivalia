@@ -48,3 +48,11 @@ a {
   align-items: center;
   color: white;
 }
+
+.loader-container > span {
+  color: $primary-color;
+  border-color: $primary-color;
+  border-bottom-color: transparent;
+  height: 80px;
+  width: 80px;
+}
