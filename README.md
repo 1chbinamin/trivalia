@@ -1,6 +1,6 @@
 ## Trivalia
 
-A quiz show of many things (now only anime)
+Anime quiz show
 
 ## Technologies used
 - Next.js
