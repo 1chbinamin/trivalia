@@ -1,0 +1,25 @@
+.circle {
+  font-size: 17px;
+  font-weight: bold;
+  height: 45px;
+  width: 45px;
+  background-color: $primary-color;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.loader-container > span {
+  color: $primary-color;
+  border-color: $primary-color;
+  border-bottom-color: transparent;
+  height: 80px;
+  width: 80px;
+}
+
+.btn {
+  background-color: $primary-color;
+  color: white;
+}

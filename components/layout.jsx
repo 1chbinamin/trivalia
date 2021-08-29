@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 export default function Layout({children}) {
     return (
-        <div className='layout-container'>
+        <div className='layout-container secondary-bg-color'>
             <Head>
                 <title>Trivalia</title>
                 <meta name="description" content="Welcome to Trivalia. The most anticipated quiz show of many things."/>
